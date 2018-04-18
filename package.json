@@ -1,6 +1,6 @@
 {
   "name": "cricbuzz",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Node package for cricbuzz API",
   "license": "MIT",
   "author": "Ridham Tarpara <ridham.tarpara@gmail.com>",
