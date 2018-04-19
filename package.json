@@ -1,16 +1,16 @@
 {
-  "name": "cricbuzz",
+  "name": "cric-live",
   "version": "1.0.0",
   "description": "Node package for cricbuzz API",
   "license": "MIT",
   "author": "Ridham Tarpara <ridham.tarpara@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ridhamtarpara/cricbuzz.git"
+    "url": "git+https://github.com/ridhamtarpara/node-cricbuzz.git"
   },
   "engines": {
     "node": ">=4"
-  }, 
+  },
   "keywords": [
     "cricket",
     "cricbuzz",
@@ -22,14 +22,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "dev": "nodemon idenx.js"
+    "dev": "nodemon index.js"
   },
   "dependencies": {
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
-    "xml2json": "^0.11.0"
+    "xml2js": "^0.4.19"
   },
   "bugs": {
-    "url": "https://github.com/ridhamtarpara/cricbuzz/issues"
+    "url": "https://github.com/ridhamtarpara/node-cricbuzz/issues"
   }
 }
