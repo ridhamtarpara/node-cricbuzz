@@ -6,6 +6,7 @@ const getLiveScore = (id) => {
     return rp.get(`http://push.cricbuzz.com/match-api/${id}/commentary.json`)
         .then(matchInfo => {
             matchInfo = JSON.parse(matchInfo);
+
             // check if valid id
             if (matchInfo.id) {
                 const output = {
@@ -22,9 +23,9 @@ const getLiveScore = (id) => {
                 score.target = matchInfo.score.target;
                 score.detail = getScoreDetails(matchInfo.score, teams);
                 score.partnership = matchInfo.score.prtshp;
-                score.lastBall = getLastBallStatus(matchInfo.score.prev_overs.trim());
                 score.batsmen = getPlayerInfo(matchInfo.score.batsman, players)
                 score.bowlers = getPlayerInfo(matchInfo.score.bowler, players)
+                score.lastBallDetail = getLastBallDetail(matchInfo.comm_lines, players, matchInfo.score.prev_overs.trim(), score.detail.batting.overs)
                 output.score = score;
                 output.teams = teams;
                 // output.game
@@ -32,6 +33,22 @@ const getLiveScore = (id) => {
             }
             throw new Error('No match found');
         });
+}
+
+const getLastBallDetail = (comm_lines, players, prevOvers, over) => {
+    
+    const lassBallCommentaryDetails = _.find(comm_lines, {
+        o_no: over
+    });
+
+    const lassBallDetail = {
+        batsman: getPlayerInfo(lassBallCommentaryDetails.batsman, players),
+        bowler: getPlayerInfo(lassBallCommentaryDetails.bowler, players),
+        events: lassBallCommentaryDetails.all_evt,
+        commentary : lassBallCommentaryDetails.comm,
+        score: getLastBallStatus(prevOvers),
+    };
+    return lassBallDetail;
 }
 
 const getLastBallStatus = (prevOvers) => {
