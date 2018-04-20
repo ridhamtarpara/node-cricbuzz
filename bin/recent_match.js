@@ -9,21 +9,6 @@ const getRecentMatches = () => {
             const totalMatches = liveMatches.mchdata.match.length;
             const matchList = liveMatches.mchdata.match.reduce((result, match) => {
                 if (match.$.id > 15000 || match.state[0].$.mchState === 'preview') {
-                    console.log({
-                        id: match.$.id,
-                        type: match.$.type,
-                        series: match.$.srs,
-                        title: match.$.mchDesc,
-                        state: match.state[0].$.mchState,
-                        status: match.state[0].$.status,
-                        teams: match.Tm.map(team => ({
-                            name: team.$.Name || '',
-                            shortName: team.$.sName || ''
-                        })),
-                        date: match.Tme[0].$.Dt,
-                        startTime: match.Tme[0].$.stTme,
-                        url: match.$.datapath
-                    });
                     result.push({
                         id: match.$.id,
                         type: match.$.type,

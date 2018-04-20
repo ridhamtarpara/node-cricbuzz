@@ -1,6 +1,6 @@
 {
   "name": "cric-live",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Node package for cricbuzz API",
   "license": "MIT",
   "author": "Ridham Tarpara <ridham.tarpara@gmail.com>",
@@ -25,6 +25,7 @@
     "dev": "nodemon index.js"
   },
   "dependencies": {
+    "lodash": "^4.17.5",
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "xml2js": "^0.4.19"
