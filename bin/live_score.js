@@ -36,7 +36,7 @@ const getLiveScore = (id) => {
             throw new Error('No match found');
         });
     } catch (e) {
-        console.log(123, e);
+        throw e;
     }
 }
 
@@ -48,7 +48,6 @@ const getLastBallDetail = (comm_lines, players, prevOvers, over) => {
     const lassBallCommentaryDetails = _.find(comm_lines, {
         o_no: over
     });
-    console.log(over, lassBallCommentaryDetails);
     const lassBallDetail = {
         batsman: getPlayerInfo(lassBallCommentaryDetails.batsman, players),
         bowler: getPlayerInfo(lassBallCommentaryDetails.bowler, players),
