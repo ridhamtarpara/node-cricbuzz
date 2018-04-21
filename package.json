@@ -1,6 +1,6 @@
 {
   "name": "cric-live",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Node package for cricbuzz API",
   "license": "MIT",
   "author": "Ridham Tarpara <ridham.tarpara@gmail.com>",
