@@ -3,7 +3,8 @@ const rp = require('request-promise');
 const _ = require('lodash')
 
 const getLiveScore = (id) => {
-    return rp.get(`http://push.cricbuzz.com/match-api/${id}/commentary.json`)
+    try{
+        return rp.get(`http://push.cricbuzz.com/match-api/${id}/commentary.json`)
         .then(matchInfo => {
             matchInfo = JSON.parse(matchInfo);
 
@@ -16,31 +17,38 @@ const getLiveScore = (id) => {
                     state: matchInfo.state,
                     venue: { name: matchInfo.venue.name, location: matchInfo.venue.location }
                 };
-                const players = matchInfo.players;
-                const teams = getTeamInfo(matchInfo.team1, matchInfo.team2);
-                const score = {};
-                score.runRate = matchInfo.score.crr;
-                score.target = matchInfo.score.target;
-                score.detail = getScoreDetails(matchInfo.score, teams);
-                score.partnership = matchInfo.score.prtshp;
-                score.batsmen = getPlayerInfo(matchInfo.score.batsman, players)
-                score.bowlers = getPlayerInfo(matchInfo.score.bowler, players)
-                score.lastBallDetail = getLastBallDetail(matchInfo.comm_lines, players, matchInfo.score.prev_overs.trim(), score.detail.batting.overs)
-                output.score = score;
-                output.teams = teams;
-                // output.game
+                if(output.state === 'inprogress') {
+                    const players = matchInfo.players;
+                    const teams = getTeamInfo(matchInfo.team1, matchInfo.team2);
+                    const score = {};
+                    score.runRate = matchInfo.score.crr;
+                    score.target = matchInfo.score.target;
+                    score.detail = getScoreDetails(matchInfo.score, teams);
+                    score.partnership = matchInfo.score.prtshp;
+                    score.batsmen = getPlayerInfo(matchInfo.score.batsman, players)
+                    score.bowlers = getPlayerInfo(matchInfo.score.bowler, players)
+                    score.lastBallDetail = getLastBallDetail(matchInfo.comm_lines, players, matchInfo.score.prev_overs.trim(), score.detail.batting.overs)
+                    output.score = score;
+                    output.teams = teams;
+                }
                 return output;
             }
             throw new Error('No match found');
         });
+    } catch (e) {
+        console.log(123, e);
+    }
 }
 
 const getLastBallDetail = (comm_lines, players, prevOvers, over) => {
-    
+    if(!over.includes(".")) {
+        over = parseInt(over, 10);
+        over = `${over-1}.6`
+    }
     const lassBallCommentaryDetails = _.find(comm_lines, {
         o_no: over
     });
-
+    console.log(over, lassBallCommentaryDetails);
     const lassBallDetail = {
         batsman: getPlayerInfo(lassBallCommentaryDetails.batsman, players),
         bowler: getPlayerInfo(lassBallCommentaryDetails.bowler, players),
