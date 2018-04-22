@@ -52,7 +52,6 @@ const generateMatchObj = (id, match) => ({
     })),
     date: match.Tme[0].$.Dt,
     startTime: match.Tme[0].$.stTme,
-    url: match.$.datapath
 })
 
 const parseXML = (xml) => {
