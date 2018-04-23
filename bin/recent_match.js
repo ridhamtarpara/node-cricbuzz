@@ -27,7 +27,9 @@ const getRecentMatches = () => {
                     result.push(generateMatchObj(matchId, match));
                 } else if (matchState === 'preview' || matchState === 'innings break' || matchState === 'inprogress'
                     || matchState === 'rain') {
-                    const fetchedId = matchIdsFromHome[`${match.$.mchDesc.substr(0,3).toLowerCase()}`];
+                        console.log('data1', match);
+                        console.log('data2', matchIdsFromHome);
+                        const fetchedId = matchIdsFromHome[`${match.$.mchDesc.split(' ')[0].substr(0,3).toLowerCase()}`];
                     if(fetchedId) {
                         result.push(generateMatchObj(fetchedId, match));
                     }
@@ -69,7 +71,7 @@ const getLiveMatchesId = ($) => {
     d1.children.forEach(matchObj => {
         const link = matchObj.children[0].attribs.href;
         const linkArray = link.split('/');
-        links[linkArray[3].substr(0,3)] = linkArray[2];
+        links[linkArray[3].split('-')[0].substr(0,3)] = linkArray[2];
     });
     return links;
 }
