@@ -27,8 +27,6 @@ const getRecentMatches = () => {
                     result.push(generateMatchObj(matchId, match));
                 } else if (matchState === 'preview' || matchState === 'innings break' || matchState === 'inprogress'
                     || matchState === 'rain') {
-                        console.log('data1', match);
-                        console.log('data2', matchIdsFromHome);
                         const fetchedId = matchIdsFromHome[`${match.$.mchDesc.split(' ')[0].substr(0,3).toLowerCase()}`];
                     if(fetchedId) {
                         result.push(generateMatchObj(fetchedId, match));
