@@ -26,7 +26,7 @@ const getRecentMatches = () => {
                 if (matchId > 15000) {
                     result.push(generateMatchObj(matchId, match));
                 } else if (matchState === 'preview' || matchState === 'innings break' || matchState === 'inprogress'
-                    || matchState === 'rain') {
+                    || matchState === 'rain' || matchState === 'lunch') {
                         const fetchedId = matchIdsFromHome[`${match.$.mchDesc.split(' ')[0].substr(0,3).toLowerCase()}`];
                     if(fetchedId) {
                         result.push(generateMatchObj(fetchedId, match));
