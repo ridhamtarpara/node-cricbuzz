@@ -17,17 +17,19 @@ const getLiveScore = (id) => {
                     state: matchInfo.state,
                     venue: { name: matchInfo.venue.name, location: matchInfo.venue.location }
                 };
-                if(output.state === 'inprogress') {
+                if (output.state !== 'preview') {
                     const players = matchInfo.players;
                     const teams = getTeamInfo(matchInfo.team1, matchInfo.team2);
                     const score = {};
-                    score.runRate = matchInfo.score.crr;
-                    score.target = matchInfo.score.target;
-                    score.detail = getScoreDetails(matchInfo.score, teams);
-                    score.partnership = matchInfo.score.prtshp;
-                    score.batsmen = getPlayerInfo(matchInfo.score.batsman, players)
-                    score.bowlers = getPlayerInfo(matchInfo.score.bowler, players)
-                    score.lastBallDetail = getLastBallDetail(matchInfo.comm_lines, players, matchInfo.score.prev_overs.trim(), score.detail.batting.overs)
+                    score.runRate = ((matchInfo || {}).score || {}).crr;
+                    score.target = ((matchInfo || {}).score || {}).target;
+                    score.detail = getScoreDetails((matchInfo || {}).score, teams);
+                    if (output.state !== 'inprogress') {
+                        score.partnership = ((matchInfo || {}).score || {}).prtshp;
+                        score.batsmen = getPlayerInfo(((matchInfo || {}).score|| {}).batsman, players)
+                        score.bowlers = getPlayerInfo(((matchInfo || {}).score|| {}).bowler, players)
+                        score.lastBallDetail = getLastBallDetail((matchInfo || {}).comm_lines, players, ((matchInfo || {}).score || {}).prev_overs.trim(), score.detail.batting.overs)
+                    }
                     output.score = score;
                     output.teams = teams;
                 }
