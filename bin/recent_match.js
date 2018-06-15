@@ -25,9 +25,9 @@ const getRecentMatches = () => {
                 const matchState = match.state[0].$.mchState;
                 if (matchId > 15000) {
                     result.push(generateMatchObj(matchId, match));
-                } else if (matchState === 'preview' || matchState === 'innings break' || matchState === 'inprogress'
-                    || matchState === 'rain' || matchState === 'lunch') {
-                        const fetchedId = matchIdsFromHome[`${match.$.mchDesc.split(' ')[0].substr(0,3).toLowerCase()}`];
+                } else {
+                        //matchState === 'preview' || matchState === 'innings break' || matchState === 'inprogress' || matchState === 'rain' || matchState === 'lunch' || matchState === 'tea'
+                    const fetchedId = matchIdsFromHome[`${match.$.mchDesc.split(' ')[0].substr(0,3).toLowerCase()}`];
                     if(fetchedId) {
                         result.push(generateMatchObj(fetchedId, match));
                     }
