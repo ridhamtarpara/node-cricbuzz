@@ -1,6 +1,6 @@
 {
   "name": "cric-live",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Node package for live cricket scores",
   "license": "MIT",
   "author": "Ridham Tarpara <ridham.tarpara@gmail.com>",

@@ -10,7 +10,7 @@ const getLiveScore = require('./live_score');
 const getRecentMatches = () => {
     return rp.get('http://www.cricbuzz.com')
         .then(cricbuzzHome => {
-            home = cheerio.load(cricbuzzHome);
+            const home = cheerio.load(cricbuzzHome);
             return getLiveMatchesId(home);
         })
         .then(liveMatchIds => {
