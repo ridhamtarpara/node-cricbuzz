@@ -11,10 +11,12 @@ const getLiveScore = (id) => {
             // check if valid id
             if (matchInfo.id) {
                 const output = {
+                    id: matchInfo.id,
                     type: matchInfo.type,
                     series: matchInfo.series.name,
                     status: matchInfo.status,
                     state: matchInfo.state,
+                    startTime: matchInfo.start_time,
                     venue: { name: matchInfo.venue.name, location: matchInfo.venue.location }
                 };
                 if (output.state !== 'preview') {
