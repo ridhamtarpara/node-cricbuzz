@@ -26,7 +26,7 @@ const getLiveScore = (id) => {
                     score.runRate = ((matchInfo || {}).score || {}).crr;
                     score.target = ((matchInfo || {}).score || {}).target;
                     score.detail = getScoreDetails((matchInfo || {}).score, teams);
-                    if (output.state !== 'inprogress') {
+                    if (output.state == 'inprogress') {
                         score.partnership = ((matchInfo || {}).score || {}).prtshp;
                         score.batsmen = getPlayerInfo(((matchInfo || {}).score|| {}).batsman, players)
                         score.bowlers = getPlayerInfo(((matchInfo || {}).score|| {}).bowler, players)

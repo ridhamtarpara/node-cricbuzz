@@ -6,7 +6,7 @@ module.exports = {
   getLiveScore,
 }
 
-getRecentMatches()
+getLiveScore(20743)
 .then(data => {
   console.log(data);
 })
