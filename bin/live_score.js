@@ -30,7 +30,7 @@ const getLiveScore = (id) => {
                         score.partnership = ((matchInfo || {}).score || {}).prtshp;
                         score.batsmen = getPlayerInfo(((matchInfo || {}).score|| {}).batsman, players)
                         score.bowlers = getPlayerInfo(((matchInfo || {}).score|| {}).bowler, players)
-                        score.lastBallDetail = getLastBallDetail((matchInfo || {}).comm_lines, players, ((matchInfo || {}).score || {}).prev_overs.trim(), score.detail.batting.overs)
+                        score.lastBallDetail = getLastBallDetail((matchInfo || {}).comm_lines, players, (((matchInfo || {}).score || {}).prev_overs || '').trim(), score.detail.batting.overs)
                     }
                     output.score = score;
                     output.teams = teams;
@@ -52,19 +52,22 @@ const getLastBallDetail = (comm_lines, players, prevOvers, over) => {
     const lassBallCommentaryDetails = _.find(comm_lines, {
         o_no: over
     });
-    const lassBallDetail = {
-        batsman: getPlayerInfo(lassBallCommentaryDetails.batsman, players),
-        bowler: getPlayerInfo(lassBallCommentaryDetails.bowler, players),
-        events: lassBallCommentaryDetails.all_evt,
-        commentary : lassBallCommentaryDetails.comm,
-        score: getLastBallStatus(prevOvers),
-    };
+    let lassBallDetail = {};
+    if (lassBallCommentaryDetails) {
+         lassBallDetail = {
+            batsman: getPlayerInfo(lassBallCommentaryDetails.batsman, players),
+            bowler: getPlayerInfo(lassBallCommentaryDetails.bowler, players),
+            events: lassBallCommentaryDetails.all_evt,
+            commentary : lassBallCommentaryDetails.comm,
+            score: getLastBallStatus(prevOvers),
+        };   
+    }
     return lassBallDetail;
 }
 
 const getLastBallStatus = (prevOvers) => {
     const ballArray = (prevOvers || "").split(' ');
-    const lastBall = ballArray.length ? ballArray[ballArray.length - 1] === '|' ? ballArray[ballArray.length - 2] || null : ballArray[ballArray.length - 1] : null;
+    const lastBall = ballArray.length ? ballArray[ballArray.length - 1] === '|' ? ballArray[ballArray.length - 2] || null : ballArray[ballArray.length - 1] : "-";
     return lastBall === '.' ? 0 : lastBall;
 }
 

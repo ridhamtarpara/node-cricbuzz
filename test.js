@@ -5,10 +5,15 @@ module.exports = {
   getRecentMatches,
   getLiveScore,
 }
-
-getLiveScore(20743)
+getRecentMatches()
 .then(data => {
-  console.log(data);
+  console.log(JSON.stringify({getRecentMatches:data}, null, 2));
+})
+
+getLiveScore(21460)
+.then(data => {
+  console.log('\n\n\n\n\n\n');
+  console.log(JSON.stringify({getLiveScore:data}, null, 2));
 })
 
 setTimeout(() => {
