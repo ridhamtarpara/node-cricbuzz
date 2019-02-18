@@ -4,7 +4,7 @@ const _ = require('lodash')
 
 const getLiveScore = (id) => {
     try{
-        return rp.get(`http://push.cricbuzz.com/match-api/${id}/commentary.json`)
+        return rp.get(`https://www.cricbuzz.com/match-api/${id}/commentary.json`)
         .then(matchInfo => {
             matchInfo = JSON.parse(matchInfo);
 
